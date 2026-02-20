@@ -66,12 +66,13 @@ export default {
             errors: []
         }
     },
+
     methods: {
         async submitForm() {
             this.errors = []
 
             if (this.form.email === '') {
-                this.errors.push('Your email is missing')
+                this.errors.push('Your e-mail is missing')
             }
 
             if (this.form.password === '') {
@@ -80,9 +81,9 @@ export default {
 
             if (this.errors.length === 0) {
                 await axios
-                    .post('api/login/', this.form)
+                    .post('/api/login/', this.form)
                     .then(response => {
-                        this.stores.setToken(response.data)
+                        this.userStore.setToken(response.data)
 
                         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.access;
                     })
@@ -91,9 +92,9 @@ export default {
                     })
 
                     await axios
-                    .get('api/me/')
+                    .get('/api/me/')
                     .then(response => {
-                        this.store.setUserInfo(response.data)
+                        this.userStore.setUserInfo(response.data)
 
                         this.$router.push('/feed')
                     })

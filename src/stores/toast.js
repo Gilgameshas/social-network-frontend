@@ -12,7 +12,7 @@ export const useToastStore = defineStore ('toast', {
     actions: {
         showToast(ms, message, classes) {
             this.ms = parseInt(ms)
-            this.messages = message
+            this.message = message
             this.classes = classes
             this.isVisible = true
 

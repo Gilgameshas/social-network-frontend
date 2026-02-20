@@ -45,7 +45,7 @@
                     </template>
 
                     <div>
-                        <button @click="console.log('Click registered')" class="py-4 px-6 bg-purple-600 text-white rounded-lg">Sign up</button>
+                        <button class="py-4 px-6 bg-purple-600 text-white rounded-lg">Sign up</button>
                     </div>
                 </form>
             </div>
@@ -101,7 +101,7 @@ export default {
             if (this.errors.length === 0) {
                 axios.post('api/signup/', this.form)
                 .then(response => {
-                    if (response.data.message === 'success') {
+                    if (response.data.status === 'success') {
                         this.toastStore.showToast(5000, 'The user is registered. Please log in', 'bg-emerald-500')
 
                         this.form.email = ''

@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', {
             isAuthenticated: false,
             id: null,
             name: null,
-            emai: null,
+            email: null,
             access: null,
             refresh: null,
         }
@@ -16,7 +16,9 @@ export const useUserStore = defineStore('user', {
 
     actions: {
         initStore() {
+            console.log('initStore')
             if (localStorage.getItem('user.access')) {
+                console.log('User has access!')
                 this.user.access = localStorage.getItem('user.access')
                 this.user.refresh = localStorage.getItem('user.refresh')
                 this.user.id = localStorage.getItem('user.id')
@@ -39,6 +41,8 @@ export const useUserStore = defineStore('user', {
 
             localStorage.setItem('user.access', data.access)
             localStorage.setItem('user.refresh', data.refresh)
+
+            console.log('user.access: ', localStorage.getItem('user.access'))
         },
 
         removeToken() {
@@ -49,7 +53,7 @@ export const useUserStore = defineStore('user', {
             this.user.isAuthenticated = false
             this.user.id = false
             this.user.name = false
-            this.user.emai = false
+            this.user.email = false
 
             localStorage.setItem('user.access', '')
             localStorage.setItem('user.refresh', '')
@@ -63,7 +67,7 @@ export const useUserStore = defineStore('user', {
 
             this.user.id = user.id
             this.user.name = user.name
-            this.user.emai = user.emai
+            this.user.email = user.email
 
             localStorage.setItem('user.id', this.user.id)
             localStorage.setItem('user.name', this.user.name)
@@ -73,7 +77,7 @@ export const useUserStore = defineStore('user', {
         },
 
         refreshToken() {
-            axios.post('/api/account/refresh/', {
+            axios.post('/api/refresh/', {
                 refresh: this.user.refresh
             })
                 .then((response) => {
